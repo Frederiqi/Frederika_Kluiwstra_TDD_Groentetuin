@@ -9,8 +9,13 @@ const get_total_yield = ({ crops }) => {
     return totalYieldAllCrops.reduce((accumulatedYield, yieldOfOneCrop) => accumulatedYield + yieldOfOneCrop)
 };
 
+// 1. Adding functionalities: costs for a crop
+
+const get_costs_for_crop = input => input.crop.costs * input.num_crops;
+
 module.exports = {
     get_yield_for_plant,
     get_yield_for_crop,
-    get_total_yield
+    get_total_yield,
+    get_costs_for_crop
 };

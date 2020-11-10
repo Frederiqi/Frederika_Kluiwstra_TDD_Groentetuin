@@ -4,6 +4,7 @@ const {
     get_yield_for_plant,
     get_yield_for_crop,
     get_total_yield,
+    get_costs_for_crop,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -55,5 +56,21 @@ describe("get_total_yield", () => {
         };
         const crops = [{ crop: corn, num_crops: 0 }];
         expect(get_total_yield({ crops })).toBe(0);
+    });
+});
+
+// 1. Adding functionalities and testing them: costs for a crop
+
+describe("get_costs_for_crop", () => {
+    const corn = {
+        name: "corn",
+        costs: 1,
+    };
+    const input = {
+        crop: corn,
+        num_crops: 5000,
+    };
+    test("Get costs for a crop", () => {
+        expect(get_costs_for_crop(input)).toBe(5000);
     });
 });
