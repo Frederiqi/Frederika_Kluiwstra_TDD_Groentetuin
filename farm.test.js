@@ -7,6 +7,7 @@ const {
     get_costs_for_crop,
     get_revenue_for_crop,
     get_profit_for_crop,
+    get_total_profit,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -109,5 +110,36 @@ describe("get_profit_for_crop", () => {
     };
     test("Get profit for a crop", () => {
         expect(get_profit_for_crop(input)).toBe(200);
+    });
+});
+
+// 4. Adding functionalities and testing them: total profit (calculated without environmental factors)
+
+describe("get_total_profit", () => {
+    test("Calculate total profit with multiple crops", () => {
+        const corn = {
+            name: "corn",
+            yield: 1,
+            costs: 1,
+            sale_price: 2,
+        };
+        const pumpkin = {
+            name: "pumpkin",
+            yield: 4,
+            costs: 2,
+            sale_price: 6,
+        };
+        const carrots = {
+            name: "carrots",
+            yield: 1,
+            costs: 1,
+            sale_price: 3,
+        };
+        const crops = [
+            { crop: corn, num_crops: 100 },
+            { crop: pumpkin, num_crops: 10 },
+            { crop: carrots, num_crops: 50 },
+        ];
+        expect(get_total_profit({ crops })).toBe(420);
     });
 });
