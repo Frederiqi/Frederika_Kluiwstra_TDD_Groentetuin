@@ -5,6 +5,7 @@ const {
     get_yield_for_crop,
     get_total_yield,
     get_costs_for_crop,
+    get_revenue_for_crop,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -72,5 +73,22 @@ describe("get_costs_for_crop", () => {
     };
     test("Get costs for a crop", () => {
         expect(get_costs_for_crop(input)).toBe(5000);
+    });
+});
+
+// 2. Adding functionalities and testing them: revenue for a crop (calculated without environmental factors)
+
+describe("get_revenue_for_crop", () => {
+    const pumpkin = {
+        name: "pumpkin",
+        yield: 2,
+        sale_price: 3,
+    };
+    const input = {
+        crop: pumpkin,
+        num_crops: 100,
+    };
+    test("Get revenue for a crop", () => {
+        expect(get_revenue_for_crop(input)).toBe(600);
     });
 });
