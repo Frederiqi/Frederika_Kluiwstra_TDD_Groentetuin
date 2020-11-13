@@ -10,6 +10,7 @@ const {
     get_total_profit,
     get_yield_for_plant_factors,
     get_yield_for_plant_multiple_factors,
+    get_yield_for_plant_multiple_relevant_factors,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -201,5 +202,81 @@ describe("get_yield_for_plant_multiple_factors", () => {
     };
     test("Calculate yield for plant, multiple environmental factors included", () => {
         expect(get_yield_for_plant_multiple_factors(corn, environment_factors)).toBe(13.65)
+    });
+});
+
+// 7. Adding functionalities and testing them: yield for plant, calculated with multiple relevant environmental factors
+
+describe("get_yield_for_plant_multiple_relevant_factors", () => {
+    const corn = {
+        name: "corn",
+        yield: 30,
+        factors: {
+            sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+            },
+            wind: {
+                little: 0,
+                medium: -30,
+                strong: -60,
+            },
+            soil: {
+                sand: -20,
+                peat: 0,
+                clay: 30,
+            },
+        },
+    };
+    const pumpkin = {
+        name: "pumpkin",
+        yield: 4,
+        costs: 2,
+        sale_price: 6,
+        factors: {
+            sun: {
+                low: -20,
+                medium: 0,
+                high: 30,
+            },
+            soil: {
+                sand: 0,
+                peat: 20,
+                clay: 30,
+            },
+        },
+    };
+    const avocado = {
+        name: "avocado",
+        yield: 1,
+        costs: 1,
+        sale_price: 3,
+        factors: {
+            sun: {
+                low: -60,
+                medium: 0,
+                high: 60,
+            },
+            wind: {
+                little: 0,
+                medium: -10,
+                strong: -20,
+            },
+        },
+    };
+    const environment_factors = {
+        sun: "medium",
+        wind: "strong",
+        soil: "peat",
+    };
+    test("Calculate yield for plant, multiple relevant environmental factors included", () => {
+        expect(get_yield_for_plant_multiple_relevant_factors(corn, environment_factors)).toBe(12)
+    });
+    test("Calculate yield for plant, multiple relevant environmental factors included", () => {
+        expect(get_yield_for_plant_multiple_relevant_factors(pumpkin, environment_factors)).toBe(4.8)
+    });
+    test("Calculate yield for plant, multiple relevant environmental factors included", () => {
+        expect(get_yield_for_plant_multiple_relevant_factors(avocado, environment_factors)).toBe(0.8)
     });
 });
