@@ -9,6 +9,7 @@ const {
     get_profit_for_crop,
     get_total_profit,
     get_yield_for_plant_factors,
+    get_yield_for_plant_multiple_factors,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -148,22 +149,57 @@ describe("get_total_profit", () => {
 // 5. Adding functionalities and testing them: yield for plant, calculated with environmental factors
 
 describe("get_yield_for_plant_factors", () => {
-const corn = {
-    name: "corn",
-    yield: 30,
-    factors: {
-        sun: {
-            low: -50,
-            medium: 0,
-            high: 50,
+    const corn = {
+        name: "corn",
+        yield: 30,
+        factors: {
+            sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+            },
         },
-    },
-};
+    };
 
-const environment_factors = {
-    sun: "low",
-};
-test("Calculate yield for plant, environmental factors included", () => {
-expect(get_yield_for_plant_factors(corn, environment_factors)).toBe(15)
+    const environment_factors = {
+        sun: "low",
+    };
+    test("Calculate yield for plant, environmental factors included", () => {
+        expect(get_yield_for_plant_factors(corn, environment_factors)).toBe(15)
+    });
 });
+
+// 6. Adding functionalities and testing them: yield for plant, calculated with multiple environmental factors
+
+describe("get_yield_for_plant_multiple_factors", () => {
+    const corn = {
+        name: "corn",
+        yield: 30,
+        factors: {
+            sun: {
+                low: -50,
+                medium: 0,
+                high: 50,
+            },
+            wind: {
+                little: 0,
+                medium: -30,
+                strong: -60,
+            },
+            soil: {
+                sand: -20,
+                peat: 0,
+                clay: 30,
+            },
+        },
+    };
+
+    const environment_factors = {
+        sun: "low",
+        wind: "medium",
+        soil: "clay",
+    };
+    test("Calculate yield for plant, multiple environmental factors included", () => {
+        expect(get_yield_for_plant_multiple_factors(corn, environment_factors)).toBe(13.65)
+    });
 });

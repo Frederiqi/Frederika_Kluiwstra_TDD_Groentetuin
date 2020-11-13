@@ -36,6 +36,21 @@ const get_yield_for_plant_factors = (crop, environment) => {
     return get_yield_for_plant(crop) * (adjustYield / 100 + 1)
 };
 
+// 6. Adding functionalities: yield for plant, calculated with multiple environmental factors
+
+const get_yield_for_plant_multiple_factors = (crop, environment) => {
+    const factorSun = environment.sun;
+    const factorWind = environment.wind;
+    const factorSoil = environment.soil;
+    const adjustForSun = crop.factors.sun[factorSun];
+    const adjustForWind = crop.factors.wind[factorWind];
+    const adjustForSoil = crop.factors.soil[factorSoil];
+    const multiplicationFactorSun = (adjustForSun / 100 + 1);
+    const multiplicationFactorWind = (adjustForWind / 100 + 1);
+    const multiplicationFactorSoil = (adjustForSoil / 100 + 1);
+    return get_yield_for_plant(crop) * multiplicationFactorSun * multiplicationFactorWind * multiplicationFactorSoil
+};
+
 module.exports = {
     get_yield_for_plant,
     get_yield_for_crop,
@@ -45,4 +60,5 @@ module.exports = {
     get_profit_for_crop,
     get_total_profit,
     get_yield_for_plant_factors,
+    get_yield_for_plant_multiple_factors,
 };
