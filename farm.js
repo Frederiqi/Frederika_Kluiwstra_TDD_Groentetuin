@@ -51,7 +51,7 @@ const get_yield_for_plant_multiple_factors = (crop, environment) => {
     return get_yield_for_plant(crop) * multiplicationFactorSun * multiplicationFactorWind * multiplicationFactorSoil
 };
 
-// 6. Adding functionalities: yield for plant, calculated with multiple environmental factors, neglecting irrelevant factors
+// 7. Adding functionalities: yield for plant, calculated with multiple environmental factors, neglecting irrelevant factors
 
 const get_yield_for_plant_multiple_relevant_factors = (crop, environment) => {
     const factorSun = environment.sun;
@@ -66,6 +66,10 @@ const get_yield_for_plant_multiple_relevant_factors = (crop, environment) => {
     return get_yield_for_plant(crop) * multiplicationFactorSun * multiplicationFactorWind * multiplicationFactorSoil
 };
 
+// 8. Adding functionalities: yield for crop, calculated with multiple relevant environmental factors
+
+const get_yield_for_crop_multiple_relevant_factors = (input, environment) => get_yield_for_plant_multiple_relevant_factors(input.crop, environment) * input.num_crops;
+
 module.exports = {
     get_yield_for_plant,
     get_yield_for_crop,
@@ -77,4 +81,5 @@ module.exports = {
     get_yield_for_plant_factors,
     get_yield_for_plant_multiple_factors,
     get_yield_for_plant_multiple_relevant_factors,
+    get_yield_for_crop_multiple_relevant_factors,
 };
