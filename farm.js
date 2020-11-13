@@ -70,6 +70,10 @@ const get_yield_for_plant_multiple_relevant_factors = (crop, environment) => {
 
 const get_yield_for_crop_multiple_relevant_factors = (input, environment) => get_yield_for_plant_multiple_relevant_factors(input.crop, environment) * input.num_crops;
 
+// 9. Adding functionalities: profit for crop, calculated with multiple relevant environmental factors
+
+const get_profit_for_crop_multiple_relevant_factors = (input, environment) => get_yield_for_crop_multiple_relevant_factors(input, environment) * input.crop.sale_price - get_costs_for_crop(input);
+
 module.exports = {
     get_yield_for_plant,
     get_yield_for_crop,
@@ -82,4 +86,5 @@ module.exports = {
     get_yield_for_plant_multiple_factors,
     get_yield_for_plant_multiple_relevant_factors,
     get_yield_for_crop_multiple_relevant_factors,
+    get_profit_for_crop_multiple_relevant_factors,
 };

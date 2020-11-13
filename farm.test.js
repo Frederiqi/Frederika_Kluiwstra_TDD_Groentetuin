@@ -12,6 +12,7 @@ const {
     get_yield_for_plant_multiple_factors,
     get_yield_for_plant_multiple_relevant_factors,
     get_yield_for_crop_multiple_relevant_factors,
+    get_profit_for_crop_multiple_relevant_factors,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -314,5 +315,40 @@ describe("get_yield_for_crop_multiple_relevant_factors", () => {
             soil: "peat",
         };
         expect(get_yield_for_crop_multiple_relevant_factors(input, environment_factors)).toBe(48);
+    });
+});
+
+// 9. Adding functionalities and testing them: profit for crop, calculated with multiple relevant environmental factors
+
+describe("get_profit_for_crop_multiple_relevant_factors", () => {
+    test("Get profit for crop, calculated with multiple relevant environmental factors", () => {
+        const pumpkin = {
+            name: "pumpkin",
+            yield: 4,
+            costs: 2,
+            sale_price: 6,
+            factors: {
+                sun: {
+                    low: -20,
+                    medium: 0,
+                    high: 30,
+                },
+                soil: {
+                    sand: 0,
+                    peat: 20,
+                    clay: 30,
+                },
+            },
+        };
+        const input = {
+            crop: pumpkin,
+            num_crops: 10,
+        };
+        const environment_factors = {
+            sun: "medium",
+            wind: "strong",
+            soil: "peat",
+        };
+        expect(get_profit_for_crop_multiple_relevant_factors(input, environment_factors)).toBe(268);
     });
 });
