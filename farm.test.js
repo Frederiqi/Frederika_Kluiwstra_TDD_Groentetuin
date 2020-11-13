@@ -8,6 +8,7 @@ const {
     get_revenue_for_crop,
     get_profit_for_crop,
     get_total_profit,
+    get_yield_for_plant_factors,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -142,4 +143,27 @@ describe("get_total_profit", () => {
         ];
         expect(get_total_profit({ crops })).toBe(420);
     });
+});
+
+// 5. Adding functionalities and testing them: yield for plant, calculated with environmental factors
+
+describe("get_yield_for_plant_factors", () => {
+const corn = {
+    name: "corn",
+    yield: 30,
+    factors: {
+        sun: {
+            low: -50,
+            medium: 0,
+            high: 50,
+        },
+    },
+};
+
+const environment_factors = {
+    sun: "low",
+};
+test("Calculate yield for plant, environmental factors included", () => {
+expect(get_yield_for_plant_factors(corn, environment_factors)).toBe(15)
+});
 });
