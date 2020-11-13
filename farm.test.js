@@ -13,6 +13,7 @@ const {
     get_yield_for_plant_multiple_relevant_factors,
     get_yield_for_crop_multiple_relevant_factors,
     get_profit_for_crop_multiple_relevant_factors,
+    get_total_profit_multiple_relevant_factors,
 } = require("./farm");
 
 describe("get_yield_for_plant", () => {
@@ -350,5 +351,101 @@ describe("get_profit_for_crop_multiple_relevant_factors", () => {
             soil: "peat",
         };
         expect(get_profit_for_crop_multiple_relevant_factors(input, environment_factors)).toBe(268);
+    });
+});
+
+// 10. Adding functionalities and testing them: total profit, calculated with multiple relevant environmental factors
+
+describe("get_total_profit_multiple_relevant_factors", () => {
+    test("Calculate total profit with multiple crops and environmental factors", () => {
+        const corn = {
+            name: "corn",
+            yield: 3,
+            costs: 1,
+            sale_price: 2,
+            factors: {
+                sun: {
+                    low: -50,
+                    medium: 0,
+                    high: 50,
+                },
+                wind: {
+                    little: 0,
+                    medium: -30,
+                    strong: -60,
+                },
+                soil: {
+                    sand: -20,
+                    peat: 0,
+                    clay: 30,
+                },
+            },
+        };
+        const pumpkin = {
+            name: "pumpkin",
+            yield: 4,
+            costs: 2,
+            sale_price: 6,
+            factors: {
+                sun: {
+                    low: -20,
+                    medium: 0,
+                    high: 30,
+                },
+                soil: {
+                    sand: 0,
+                    peat: 20,
+                    clay: 30,
+                },
+            },
+        };
+        const carrots = {
+            name: "carrots",
+            yield: 1,
+            costs: 1,
+            sale_price: 3,
+            factors: {
+                sun: {
+                    low: -10,
+                    medium: 0,
+                    high: 10,
+                },
+                soil: {
+                    sand: 0,
+                    peat: 10,
+                    clay: 20,
+                },
+            },
+        };
+        const avocado = {
+            name: "avocado",
+            yield: 1,
+            costs: 1,
+            sale_price: 3,
+            factors: {
+                sun: {
+                    low: -60,
+                    medium: 0,
+                    high: 60,
+                },
+                wind: {
+                    little: 0,
+                    medium: -10,
+                    strong: -20,
+                },
+            },
+        };
+        const environment_factors = {
+            sun: "high",
+            wind: "little",
+            soil: "clay",
+        };
+        const crops = [
+            { crop: corn, num_crops: 200 },
+            { crop: pumpkin, num_crops: 20 },
+            { crop: carrots, num_crops: 100 },
+            { crop: avocado, num_crops: 30 },
+        ];
+        expect(get_total_profit_multiple_relevant_factors({ crops }, environment_factors)).toBe(3321.2);
     });
 });
